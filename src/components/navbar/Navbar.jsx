@@ -13,8 +13,8 @@ const Navbar = () => {
             <AppBar position="fixed" className={classes.appBar} color="inherit">
                 <Toolbar>
                     <Typography variant="h6" className={classes.title} color="inherit">
-                        <img src={logo} alt="Prime Commerce" height="30px" className={classes.image} />
-                        Prime Commerce
+                        <img src={logo} alt="Prime Stores" height="30px" className={classes.image} />
+                        Prime Stores
                     </Typography>
                     <div className={classes.grow} />
                     <div className={classes.button}>
