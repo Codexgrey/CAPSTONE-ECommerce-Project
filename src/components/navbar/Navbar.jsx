@@ -6,9 +6,11 @@ import useStyles from './styles';
 
 
 const Navbar = () => {
+    // from styles.js
     const classes = useStyles();
 
     return (
+        // empty react fragment, can also be a div
         <>
             <AppBar position="fixed" className={classes.appBar} color="inherit">
                 <Toolbar>
@@ -16,6 +18,8 @@ const Navbar = () => {
                         <img src={logo} alt="Prime Stores" height="30px" className={classes.image} />
                         Prime Stores
                     </Typography>
+
+                    {/* classes.grow means this div will take as much space as it needs */}
                     <div className={classes.grow} />
                     <div className={classes.button}>
                         <IconButton aria-label="Show cart items" color="inherit">

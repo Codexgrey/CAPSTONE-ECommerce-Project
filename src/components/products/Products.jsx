@@ -9,6 +9,7 @@ const myProducts = [
 ]
 
 const Products = () => {
+    // from styles.js
     const classes = useStyles();
 
     return (
