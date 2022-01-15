@@ -21,12 +21,13 @@ const App = () => {
   // [] - this dependency array set to empty means it's only going to run at the start
   // In classbased components, this is called a componentThatMount
   useEffect(() => { fetchProducts(); }, []);
-  console.log(products);
+  // console.log(products);
 
   return (
     <div>
-        <Navbar /> 
-        <Products />
+        <Navbar />
+         {/* passing our products as props inside of the products function  */}
+        <Products products={products} />
     </div>
   ) 
 }
@@ -36,5 +37,3 @@ export default App
 
 
 
-// import Products from './components/products/Products';
-// import Navbar from './components/navbar/Navbar';
