@@ -4,7 +4,8 @@ import { AddShoppingCart } from '@material-ui/icons';
 import useStyles from './styles';
 
 
-const Product = ({ product }) => {
+// getting our product, onAddToCart props from products.js
+const Product = ({ product, onAddToCart }) => {
     // from styles.js
     const classes = useStyles();
     // console.log(product);
@@ -25,11 +26,11 @@ const Product = ({ product }) => {
             </CardContent>
 
             <CardActions disableSpacing className={classes.cardActions}>
-                <IconButton aria-label="Add to cart">
-                    {/* wiring this to a button */}
+                {/* calling handleAddToCart onclick of IconButton, using onAddToCart prop */}
+                <IconButton aria-label="Add to cart" onClick={() => onAddToCart(product.id, 1)}>
                     <AddShoppingCart />
                 </IconButton>
-            </CardActions>
+            </CardActions> 
         </Card>
     )
 }
