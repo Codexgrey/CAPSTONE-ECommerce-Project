@@ -7,9 +7,9 @@ import useStyles from './styles'
 const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
     const classes = useStyles();
   
-    const handleUpdateCartQty = (lineItemId, newQuantity) => onUpdateCartQty(lineItemId, newQuantity);
+    const handleUpdateCartQty = (productId, newQuantity) => onUpdateCartQty(productId, newQuantity);
   
-    const handleRemoveFromCart = (lineItemId) => onRemoveFromCart(lineItemId);
+    const handleRemoveFromCart = (productId) => onRemoveFromCart(productId);
   
     return (
         // building layout for each cartItem card
@@ -22,6 +22,7 @@ const CartItem = ({ item, onUpdateCartQty, onRemoveFromCart }) => {
         </CardContent>
 
         <CardActions className={classes.cardActions}>
+            {/* using our cart props to handle various states */}
             <div className={classes.buttons}>
                 <Button type="button" size="small" onClick={() => handleUpdateCartQty(item.id, item.quantity - 1)}>-</Button>
                 <Typography>&nbsp;{item.quantity}&nbsp;</Typography>
