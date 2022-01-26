@@ -1,10 +1,21 @@
 import React from 'react';
+import { Typography, Button, Divider } from '@material-ui/core';
 
-const PaymentForm = () => {
+// importing stripe tools
+import { Elements, CardElement, ElementsConsumer } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+
+// general list of our purchase
+import Review from './Review';
+
+
+// accessing checkoutToken prop
+const PaymentForm = ({ checkoutToken }) => {
     return (
-        <div>
-            PaymentForm
-        </div>
+        <>
+            {/* passing token as prop */}
+            <Review checkoutToken={checkoutToken} />
+        </>
       )
 };
 

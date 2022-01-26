@@ -73,10 +73,11 @@ const Checkout = ({ cart }) => {
         /*
             passing checkoutToken, next into first step of form, i.e AddressForm
             using shippingData useState to pass data to second step of form, i.e PaymentForm
-            review - AddressForm => Checkout => PaymentForm
+            review - AddressForm => Checkout => PaymentForm.
+            passing token via checkoutToken state to PaymentForm as prop
         */
         ? <AddressForm checkoutToken={checkoutToken} next={next} /> 
-        : <PaymentForm /> 
+        : <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken} /> 
 
 
     /* 
