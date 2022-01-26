@@ -96,7 +96,8 @@ const App = () => {
                     </Route>
 
                     <Route path="/checkout" exact>
-                        <Checkout />
+                        {/* passing cart into checkout component */}
+                        <Checkout cart={cart}/>
                     </Route>
                 </Switch>
             </div>

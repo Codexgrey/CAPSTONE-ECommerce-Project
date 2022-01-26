@@ -5,7 +5,7 @@ import { useFormContext, Controller } from 'react-hook-form';
 
 
 // This component connects RHF with material UI text input
-const FormInput = ({ name, label, required }) => {
+const FormInput = ({ name, label }) => {
     const { control } = useFormContext();
 
     return (
