@@ -14,7 +14,7 @@ import useStyles from './styles';
 // stepper steps
 const steps = ['Shipping address', 'Payment details'];
 
-const Checkout = ({ cart }) => {
+const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
     // setting token, stepper, shippingData useStates
     const [checkoutToken, setCheckoutToken] = useState(null);
     const [activeStep, setActiveStep] = useState(0);
@@ -64,7 +64,7 @@ const Checkout = ({ cart }) => {
 
     const Confirmation = () => (
         <div>
-            Confirmation
+            Confirmation 
         </div>
     )
 
@@ -77,7 +77,13 @@ const Checkout = ({ cart }) => {
             passing token via checkoutToken state to PaymentForm as prop
         */
         ? <AddressForm checkoutToken={checkoutToken} next={next} /> 
-        : <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken} nextStep={nextStep} backStep={backStep} /> 
+        : <PaymentForm 
+            shippingData={shippingData} 
+            checkoutToken={checkoutToken} 
+            nextStep={nextStep} 
+            backStep={backStep}
+            onCaptureCheckout={onCaptureCheckout}
+        /> 
 
 
     /* 

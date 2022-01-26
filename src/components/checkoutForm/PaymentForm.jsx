@@ -11,10 +11,10 @@ import Review from './Review';
 // passing in my stripe public key
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPEPublickey);
 
-// accessing checkoutToken prop
-const PaymentForm = ({ shippingData, checkoutToken, nextStep, backStep }) => {
+// accessing passed props from Checkout comp
+const PaymentForm = ({ shippingData, checkoutToken, backStep, onCaptureCheckout, nextStep }) => {
     // function to finalize order
-    const handleSubmit = (event, elements, stripe) => {
+    const handleSubmit = async (event, elements, stripe) => {
         // so the website doesn't refresh after user clicks the button
         event.preventDefault();
 
@@ -56,6 +56,9 @@ const PaymentForm = ({ shippingData, checkoutToken, nextStep, backStep }) => {
                     },
                 },
             }
+
+            onCaptureCheckout(checkoutToken.id, orderData);
+            nextStep();
         }
     }
 

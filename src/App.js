@@ -137,8 +137,13 @@ const App = () => {
                     </Route>
 
                     <Route path="/checkout" exact>
-                        {/* passing cart into checkout component */}
-                        <Checkout cart={cart}/>
+                        {/* passing props into checkout component */}
+                        <Checkout 
+                            cart={cart}
+                            order={order} 
+                            onCaptureCheckout={handleCaptureCheckout} 
+                            error={errorMessage}
+                        />
                     </Route>
                 </Switch>
             </div>
