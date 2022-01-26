@@ -9,10 +9,15 @@ import { commerce } from './lib/commerce';
 
 
 const App = () => {
-    // creating state for fetching products
-    // our cart = empty object by default
+    /* 
+        creating state fields
+        creating state for fetching products
+        our cart = empty object by default
+    */
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState({});
+    const [order, setOrder] = useState({});
+    const [errorMessage, setErrorMessage] = useState('');
 
     // function to populate the products
     const fetchProducts = async () => {
@@ -24,9 +29,11 @@ const App = () => {
 
     // function to see what's in the cart. Fetching cart
     const fetchCart = async () => {
-        // const cart = await commerce.cart.retrieve();
-        // setCart(cart)
         setCart(await commerce.cart.retrieve()) 
+        /* 
+            const cart = await commerce.cart.retrieve();
+            setCart(cart)
+        */
     }
 
     // function to add products to cart. To be used inside our "product component"
@@ -37,18 +44,23 @@ const App = () => {
         setCart(cart);
     }
 
-    // These functions are updating our state
-    // functionality for updating the quantity of a specific product
+
+    /* 
+        These functions are updating our state,
+        functionality for updating the quantity of a specific product
+    */ 
     const handleUpdateCartQty = async (productId, quantity) => {
         const { cart } = await commerce.cart.update(productId, { quantity });
         setCart(cart);
     };
+
 
     // functionality for removing a cartItem
     const handleRemoveFromCart = async (productId) => {
         const { cart } = await commerce.cart.remove(productId);
         setCart(cart);
     };
+
 
     // functionality for emptyCart state
     const handleEmptyCart = async () => {
@@ -58,13 +70,42 @@ const App = () => {
     };
 
 
-    // useEffect hook to use fetch func to fetch products immediately on app load
-    // [] - this dependency array set to empty means it's only going to run at the start
-    // In classbased components, this is called a componentThatMount
+    // refreshing cart upon finishing order
+    const refreshCart = async () => {
+        const newCart = await commerce.cart.refresh();
+        setCart(newCart);
+    };
+
+
+    /*
+        calling commerce api one last time,
+        creating function for fulfilling an order
+    */
+    const handleCaptureCheckout = async (checkoutTokenId, newOrder) => {
+        // trying to fetch incomingOrder, passing in token ID of specific order
+        try {
+            const incomingOrder = await commerce.checkout.capture(checkoutTokenId, newOrder);
+            setOrder(incomingOrder);
+            // to refresh cart, once order is done
+            refreshCart();
+
+        } catch (error) {
+            // meaningful info, why the error occured
+            setErrorMessage(error.data.error.message);
+        }
+    };
+
+
+    /* 
+        useEffect hook to use fetch func to fetch products immediately on app load
+        [] - this dependency array set to empty means it's only going to run at the start
+        In classbased components, this is called a componentThatMount
+    */
     useEffect(() => { 
         fetchProducts(); 
         fetchCart(); 
     }, []);
+
     // console.log(products);
     console.log(cart)
 

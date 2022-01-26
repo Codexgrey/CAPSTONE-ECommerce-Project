@@ -77,7 +77,7 @@ const Checkout = ({ cart }) => {
             passing token via checkoutToken state to PaymentForm as prop
         */
         ? <AddressForm checkoutToken={checkoutToken} next={next} /> 
-        : <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken} /> 
+        : <PaymentForm shippingData={shippingData} checkoutToken={checkoutToken} nextStep={nextStep} backStep={backStep} /> 
 
 
     /* 
