@@ -15,19 +15,24 @@ import useStyles from './styles';
 const steps = ['Shipping address', 'Payment details'];
 
 const Checkout = ({ cart }) => {
-    // setting token, stepper states
+    // setting token, stepper, shippingData useStates
     const [checkoutToken, setCheckoutToken] = useState(null);
     const [activeStep, setActiveStep] = useState(0);
+    const [shippingData, setShippingData] = useState({});
     const classes = useStyles();
     // const history = useHistory();
 
-    /* initially - It's a componentDidMount; 
-       has just an empty dependency array. It only happens at the start */
+    /* 
+        initially - It's a componentDidMount; 
+        has just an empty dependency array. It only happens at the start 
+    */
     useEffect(() => {
         // Soon as user enters checkout process, generate a checkout token from commerce.js API
         if (cart.id) {
-            /* creating a new function & calling it immediately afterwards, in useEffect
-               you can only use async in a new function */
+            /* 
+                creating a new function & calling it immediately afterwards, in useEffect
+                you can only use async in a new function 
+            */
             const generateToken = async () => {
                 try {
                     const token = await commerce.checkout.generateToken(cart.id, { type: 'cart' })
@@ -41,6 +46,21 @@ const Checkout = ({ cart }) => {
             generateToken();
         }
     }, [cart]);
+     
+
+    /*
+        After setShippingData, i want to move the setActiveStep - 1 further
+        These functions set the activeStep; nextStep = prev + 1, backStep = prev - 1 
+    */
+    const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
+
+    // getting data from RHF in AddressForm
+    const next = (data) => {
+        // setting it to shippingData
+        setShippingData(data);
+        nextStep();
+    };
 
     const Confirmation = () => (
         <div>
@@ -50,13 +70,19 @@ const Checkout = ({ cart }) => {
 
     // form for rendering steps(components): if first step, render AddressForm else PaymentForm   
     const Form = () => activeStep === 0
-    // passing checkoutToken into AddressForm, to destructure and access it in compenent 
-        ? <AddressForm checkoutToken={checkoutToken} /> 
+        /*
+            passing checkoutToken, next into first step of form, i.e AddressForm
+            using shippingData useState to pass data to second step of form, i.e PaymentForm
+            review - AddressForm => Checkout => PaymentForm
+        */
+        ? <AddressForm checkoutToken={checkoutToken} next={next} /> 
         : <PaymentForm /> 
 
 
-    /* react render process; Render JSX => go to the componentDidMount, this case
-        useEffect => Re-Render if need be */
+    /* 
+        react render process; 
+        Render JSX => go to componentDidMount, this case useEffect => Re-Render if need be 
+    */
     return (
         <>
             <div className={classes.toolbar} />

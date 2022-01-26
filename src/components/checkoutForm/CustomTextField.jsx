@@ -12,9 +12,11 @@ const FormInput = ({ name, label }) => {
         <Grid item xs={12} sm={6}>
             {/* RHF component that allows us to use any other input/text field as this controller */}
             <Controller
-                // getting from calling useFormContext()
-                // using render to output text field, now required for Controller in RHF
-                // TextField takes look, feel & all variables from real text field
+                /* 
+                    control is gotten from calling useFormContext()
+                    using render to output text field, now required for Controller in RHF
+                    TextField takes look, feel & all variables from real text field
+                */
                 name={name}
                 control={control} 
                 render = {({ field })=> (

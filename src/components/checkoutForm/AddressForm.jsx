@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { InputLabel, Select, MenuItem, Button, Grid, Typography } from '@material-ui/core';
 import { useForm, FormProvider } from 'react-hook-form'; // using React hook form
+import { Link } from 'react-router-dom';
 
 // to use all API features
 import { commerce } from '../../lib/commerce';
 import FormInput from './CustomTextField'; // RHF, Material UI connector
 
 
-const AddressForm = ({ checkoutToken }) => {
+const AddressForm = ({ checkoutToken, next }) => {
     // shipping states to fetch all countries, subdivisions and options
     const [shippingCountries, setShippingCountries] = useState([]);
     const [shippingCountry, setShippingCountry] = useState('');
@@ -82,7 +83,12 @@ const AddressForm = ({ checkoutToken }) => {
             <Typography variant="h6" gutterBottom>Shipping address</Typography>
             {/* FormProvider from RHF, spreading all methods from RHF*/}
             <FormProvider {...methods}>
-                <form onSubmit=''>
+                {/* 
+                    handleSubmit, handling all (data) for all form fields 
+                    calling next function from Checkout;
+                    giving it an obj - { spreading (data) properties & passing in all shipping Data }
+                */}
+                <form onSubmit={methods.handleSubmit((data) => next({ ...data, shippingCountry, shippingSubdivision, shippingOption }))}>
                     {/* Grid for spacing all of our input fields */}
                     <Grid container spacing={3}>
                         {/* FormInput from CustomTextField, connecting RHF to material UI input */}
@@ -127,6 +133,11 @@ const AddressForm = ({ checkoutToken }) => {
                             </Select>
                         </Grid>
                     </Grid>
+                    <br />                      
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Button component={Link} variant="outlined" to="/cart">Back to Cart</Button>
+                        <Button type="submit" variant="contained" color="primary">Next</Button>
+                    </div>
                 </form>
             </FormProvider>
         </>
