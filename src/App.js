@@ -85,8 +85,8 @@ const App = () => {
         // trying to fetch incomingOrder, passing in token ID of specific order
         try {
             const incomingOrder = await commerce.checkout.capture(checkoutTokenId, newOrder);
-            setOrder(incomingOrder);
             // to refresh cart, once order is done
+            setOrder(incomingOrder);
             refreshCart();
 
         } catch (error) {

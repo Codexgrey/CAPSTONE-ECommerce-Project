@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, List, ListItem, ListItemText } from '@material-ui/core';
 
-// accessing checkoutToken prop
+// accessing token prop from PaymentForm.jsx
 const Review = ({ checkoutToken }) => (
     <>
         <Typography variant="h6" gutterBottom>Order summary</Typography>

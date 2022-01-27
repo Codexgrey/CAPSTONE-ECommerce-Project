@@ -11,7 +11,7 @@ import Review from './Review';
 // passing in my stripe public key
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPEPublickey);
 
-// accessing passed props from Checkout comp
+// accessing passed props from Checkout.jsx
 const PaymentForm = ({ shippingData, checkoutToken, backStep, onCaptureCheckout, nextStep }) => {
     // form function to finalize order
     const handleSubmit = async (event, elements, stripe) => {
@@ -65,8 +65,8 @@ const PaymentForm = ({ shippingData, checkoutToken, backStep, onCaptureCheckout,
 
     return (
         <>
-            {/* passing token as prop, to review order */}
-            <Review checkoutToken={checkoutToken} />
+            {/* passing token as prop, to Review.jsx */}
+            <Review checkoutToken={checkoutToken} /> 
             <Divider />
             <Typography variant="h6" gutterBottom style={{ margin: '20px 0' }}>Payment method</Typography>
             {/*
@@ -77,7 +77,7 @@ const PaymentForm = ({ shippingData, checkoutToken, backStep, onCaptureCheckout,
                 <ElementsConsumer>
                      {({ elements, stripe }) => (
                         <form onSubmit={(e) => handleSubmit(e, elements, stripe)}>
-                            <CardElement />
+                            <CardElement /> {/* user payment card */}
                             <br /> <br />
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <Button variant="outlined" onClick={backStep}>Back</Button>
@@ -95,4 +95,4 @@ const PaymentForm = ({ shippingData, checkoutToken, backStep, onCaptureCheckout,
 
 export default PaymentForm;
 
-
+// SANDBOX Settings for testing

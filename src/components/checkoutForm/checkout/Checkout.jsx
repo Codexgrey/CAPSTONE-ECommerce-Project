@@ -14,23 +14,24 @@ import useStyles from './styles';
 // stepper steps
 const steps = ['Shipping address', 'Payment details'];
 
+// destructuring props from App.js
 const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
     // setting token, stepper, shippingData useStates
-    const [checkoutToken, setCheckoutToken] = useState(null);
     const [activeStep, setActiveStep] = useState(0);
+    const [checkoutToken, setCheckoutToken] = useState(null);
     const [shippingData, setShippingData] = useState({});
     const classes = useStyles();
     // const history = useHistory();
 
-    /* 
+    /*    
         initially - It's a componentDidMount; 
         has just an empty dependency array. It only happens at the start 
     */
     useEffect(() => {
-        // Soon as user enters checkout process, generate a checkout token from commerce.js API
+        // Soon as user enters checkout process, generate a checkoutToken from commerce.js API
         if (cart.id) {
             /* 
-                creating a new function & calling it immediately afterwards, in useEffect
+                creating a new function & calling it immediately afterwards coz in useEffect
                 you can only use async in a new function 
             */
             const generateToken = async () => {
@@ -44,7 +45,7 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
             };
         
             generateToken();
-        }
+        } 
     }, [cart]);
      
 
