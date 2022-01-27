@@ -52,7 +52,8 @@ const PaymentForm = ({ shippingData, checkoutToken, backStep, onCaptureCheckout,
                 payment: {
                     gateway: 'stripe',
                     stripe: {
-                        payment_method_id: paymentMethod.id, // from calling stripe.createPaymentMethod
+                        // from calling stripe.createPaymentMethod
+                        payment_method_id: paymentMethod.id, 
                     },
                 },
             }
