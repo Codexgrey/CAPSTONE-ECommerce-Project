@@ -13,7 +13,7 @@ const stripePromise = loadStripe(process.env.REACT_APP_STRIPEPublickey);
 
 // accessing passed props from Checkout comp
 const PaymentForm = ({ shippingData, checkoutToken, backStep, onCaptureCheckout, nextStep }) => {
-    // function to finalize order
+    // form function to finalize order
     const handleSubmit = async (event, elements, stripe) => {
         // so the website doesn't refresh after user clicks the button
         event.preventDefault();
@@ -41,7 +41,7 @@ const PaymentForm = ({ shippingData, checkoutToken, backStep, onCaptureCheckout,
                     email: shippingData.email 
                 },
                 shipping: { 
-                    name: 'International', 
+                    name: 'Primary', 
                     street: shippingData.address1, 
                     town_city: shippingData.city, 
                     county_state: shippingData.shippingSubdivision, 
