@@ -104,8 +104,10 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
                         </Step>
                         ))}
                     </Stepper>
-                    {/* if we're on the last step, show Confirmation Comp else our Form 
-                        (but only when we have the checkoutToken) */}
+                    {/* 
+                        if we're on the last step, show Confirmation Comp else our Form 
+                        (but only when we have the checkoutToken) 
+                    */}
                     {activeStep === steps.length ? <Confirmation /> : checkoutToken && <Form />}
                 </Paper>
             </main>

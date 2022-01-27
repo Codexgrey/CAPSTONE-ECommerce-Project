@@ -74,14 +74,15 @@ const PaymentForm = ({ shippingData, checkoutToken, backStep, onCaptureCheckout,
                 - stripe Elements, ElementsConsumer always has a callback func with a return 
             */}
             <Elements stripe={stripePromise}>
-                <ElementsConsumer>{({ elements, stripe }) => (
+                <ElementsConsumer>
+                     {({ elements, stripe }) => (
                         <form onSubmit={(e) => handleSubmit(e, elements, stripe)}>
                             <CardElement />
                             <br /> <br />
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <Button variant="outlined" onClick={backStep}>Back</Button>
                                 <Button type="submit" variant="contained" disabled={!stripe} color="primary">
-                                    Pay {checkoutToken.live.subtotal.formatted_with_symbol}
+                                    Pay { checkoutToken.live.subtotal.formatted_with_symbol }
                                 </Button>
                             </div>
                         </form>
