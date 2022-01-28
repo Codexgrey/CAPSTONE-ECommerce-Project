@@ -23,6 +23,7 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
     const [activeStep, setActiveStep] = useState(0);
     const [checkoutToken, setCheckoutToken] = useState(null);
     const [shippingData, setShippingData] = useState({});
+    const [isCompleted, setIsCompleted] = useState(false);
     const classes = useStyles();
     const history = useHistory();
 
@@ -51,7 +52,7 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
         
             generateToken();
         } 
-    }, [cart]);
+    }, [cart, history]);
      
 
     /*
@@ -69,10 +70,21 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
     };
 
 
+    /* 
+        timeout func to init MOCK successful transaction in PaymentForm,
+        via pay button; if no credit card/transaction cannot be completed
+    */
+    const timeout = () => {
+        setTimeout(() => {
+            setIsCompleted(true);
+        }, 3000);
+    }
+
+
     /*
         if order.customer exists i.e order is fulfilled, show this 
         else render a new jsx block
-     */
+    */
     let Confirmation = () => order.customer ? (
         <>
             <div>
@@ -83,6 +95,17 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
             <br />
             <Button component={Link} to="/" variant="outlined" type="button">Back to home</Button>
         </>
+
+    ) : isCompleted ? (
+        <>
+            <div>
+                <Typography variant="h5">Thank you for your purchase</Typography>
+                <Divider className={classes.divider} />
+            </div>
+            <br />
+            <Button component={Link} to="/" variant="outlined" type="button">Back to home</Button>
+        </>
+        
     ) : (
         // while we process the order,display spinner 
         <div className={classes.spinner}>
@@ -107,6 +130,7 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
             using shippingData useState to pass data to second step of form, i.e PaymentForm
             review - AddressForm => Checkout => PaymentForm.
             passing token via checkoutToken state to PaymentForm as prop
+            timeout to trigger mock completion
         */
         ? <AddressForm checkoutToken={checkoutToken} next={next} /> 
         : <PaymentForm 
@@ -115,6 +139,7 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
             nextStep={nextStep} 
             backStep={backStep}
             onCaptureCheckout={onCaptureCheckout}
+            timeout={timeout}
         /> 
 
 
