@@ -45,17 +45,42 @@ const Cart = ({ cart, handleUpdateCartQty, handleRemoveFromCart, handleEmptyCart
     if(!cart.line_items) return 'loading...' 
 
     return (
-        <Container>
-            {/* this just pushes the content, creating sortof a top margin */}
-            <div className={classes.toolbar}/>
-            <Button component={Link} to="/" size="large" variant="outlined" type="button">Back to Home</Button>
-    
-            {/* options to display different content based state of cart */}
-            <Typography className={classes.title} variant="h3" gutterBottom>Your Shopping Cart</Typography>
-            {!cart.line_items.length ? <EmptyCart /> : <FilledCart />}
-        </Container>
+        <>
+            {!cart.line_items.length ? (
+                <Container>
+                    {/* this just pushes the content, creating sortof a top margin */}
+                    <div className={classes.toolbar}/>
+            
+                    {/* display empty cart */}
+                    <Typography className={classes.title} variant="h3" gutterBottom>Your Shopping Cart</Typography>
+                    <EmptyCart />
+                </Container>
+            ) : (
+                <Container>
+                    <div className={classes.toolbar}/>
+                    <Button component={Link} to="/" size="large" variant="outlined" type="button">Back to Home</Button>
+            
+                    {/* display filled cart */}
+                    <Typography className={classes.title} variant="h3" gutterBottom>Your Shopping Cart</Typography>
+                    <FilledCart />
+                </Container>
+            )};
+        </>
     )
 }
 
 export default Cart
   
+
+/* 
+//* Old render logic
+<Container>
+    //* this just pushes the content, creating sortof a top margin 
+    <div className={classes.toolbar}/>
+    <Button component={Link} to="/" size="large" variant="outlined" type="button">Back to Home</Button>
+
+    //* options to display different content based state of cart
+    <Typography className={classes.title} variant="h3" gutterBottom>Your Shopping Cart</Typography>
+    {!cart.line_items.length ? <EmptyCart /> : <FilledCart />}
+</Container> 
+*/
