@@ -90,7 +90,7 @@ const App = () => {
             refreshCart();
 
         } catch (error) {
-            // meaningful info, why the error occured
+            // meaningful info, why the error occured; console.log(error)
             setErrorMessage(error.data.error.message);
         }
     };
@@ -136,7 +136,7 @@ const App = () => {
                         />
                     </Route>
 
-                    <Route path="/checkout" exact>
+                    <Route exact path="/checkout">
                         {/* passing props into checkout component */}
                         <Checkout 
                             cart={cart}

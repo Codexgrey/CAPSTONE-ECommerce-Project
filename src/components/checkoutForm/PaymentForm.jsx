@@ -12,17 +12,17 @@ import Review from './Review';
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPEPublickey);
 
 // accessing passed props from Checkout.jsx
-const PaymentForm = ({ shippingData, checkoutToken, backStep, onCaptureCheckout, nextStep }) => {
+const PaymentForm = ({ checkoutToken, shippingData, backStep, onCaptureCheckout, nextStep }) => {
     // form function to finalize order
     const handleSubmit = async (event, elements, stripe) => {
         // so the website doesn't refresh after user clicks the button
         event.preventDefault();
 
         // do nothing/go outside function, if user can't access to any of these
-        if( !stripe || !elements) return
+        if( !stripe || !elements) return;
 
         // getting our element from stripe
-        const cardElement = elements.getElement(CardElement)
+        const cardElement = elements.getElement(CardElement);
 
         // using stripe API to create a payment method; passing in options obj
         const { error, paymentMethod } = await stripe.createPaymentMethod({ type: 'card', card: cardElement });
@@ -30,7 +30,6 @@ const PaymentForm = ({ shippingData, checkoutToken, backStep, onCaptureCheckout,
         // if error, log it
         if(error) {
             console.log(error);
-
           // else if no error; create final object with all data, all items in our cart.
         } else { 
             const orderData = {
