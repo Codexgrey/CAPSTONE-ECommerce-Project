@@ -18,7 +18,7 @@ import useStyles from './styles';
 const steps = ['Shipping address', 'Payment details'];
 
 // destructuring props from App.js
-const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
+const Checkout = ({ cart, order, onCaptureCheckout, error, refreshCart }) => {
     // setting token, stepper, shippingData useStates
     const [activeStep, setActiveStep] = useState(0);
     const [checkoutToken, setCheckoutToken] = useState(null);
@@ -45,8 +45,8 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
 
                 } catch (error) {
                     // if error, go to homepage
-                    history.pushState('/');
                     // if (activeStep !== steps.length) history.push('/');
+                    history.push('/');
                 }
             };
         
@@ -103,9 +103,12 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
                 <Divider className={classes.divider} />
             </div>
             <br />
-            <Button component={Link} to="/" variant="outlined" type="button">Back to home</Button>
+            {/* refreshing cart onClick */}
+            <Button component={Link} to="/" onClick={refreshCart} variant="outlined" type="button">
+                Back to home
+            </Button>
         </>
-        
+
     ) : (
         // while we process the order,display spinner 
         <div className={classes.spinner}>
@@ -126,11 +129,11 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
     // form for rendering steps(components): if first step, render AddressForm else PaymentForm   
     const Form = () => activeStep === 0
         /*
-            passing checkoutToken, next into first step of form, i.e AddressForm
-            using shippingData useState to pass data to second step of form, i.e PaymentForm
-            review - AddressForm => Checkout => PaymentForm.
-            passing token via checkoutToken state to PaymentForm as prop
-            timeout to trigger mock completion
+            - passing checkoutToken, next into first step of form, i.e AddressForm
+            - using shippingData useState to pass data to second step of form, i.e PaymentForm
+              review - AddressForm => Checkout => PaymentForm.
+            - passing token via checkoutToken state to PaymentForm as prop
+            - timeout to trigger mock completion
         */
         ? <AddressForm checkoutToken={checkoutToken} next={next} /> 
         : <PaymentForm 

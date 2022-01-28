@@ -92,6 +92,7 @@ const App = () => {
         } catch (error) {
             // meaningful info, why the error occured; console.log(error)
             setErrorMessage(error.data.error.message);
+    
         }
     };
 
@@ -143,6 +144,7 @@ const App = () => {
                             order={order} 
                             onCaptureCheckout={handleCaptureCheckout} 
                             error={errorMessage}
+                            refreshCart={refreshCart}
                         />
                     </Route>
                 </Switch>

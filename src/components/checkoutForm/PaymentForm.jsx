@@ -12,7 +12,7 @@ import Review from './Review';
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPEPublickey);
 
 // accessing passed props from Checkout.jsx
-const PaymentForm = ({ checkoutToken, shippingData, backStep, onCaptureCheckout, nextStep }) => {
+const PaymentForm = ({ checkoutToken, shippingData, backStep, onCaptureCheckout, nextStep, timeout }) => {
     // form function to finalize order
     const handleSubmit = async (event, elements, stripe) => {
         // so the website doesn't refresh after user clicks the button
@@ -58,6 +58,8 @@ const PaymentForm = ({ checkoutToken, shippingData, backStep, onCaptureCheckout,
             }
 
             onCaptureCheckout(checkoutToken.id, orderData);
+            // timeout controlling mock completion
+            timeout();
             nextStep();
         }
     }
