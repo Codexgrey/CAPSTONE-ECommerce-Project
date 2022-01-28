@@ -105,7 +105,7 @@ const Checkout = ({ cart, order, onCaptureCheckout, error, refreshCart }) => {
             <br />
             {/* refreshing cart onClick */}
             <Button component={Link} to="/" onClick={refreshCart} variant="outlined" type="button">
-                Back to home
+                Home
             </Button>
         </>
 

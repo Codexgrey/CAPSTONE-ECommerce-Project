@@ -31,7 +31,10 @@ const Cart = ({ cart, handleUpdateCartQty, handleRemoveFromCart, handleEmptyCart
             <div className={classes.cardDetails}>
                 <Typography variant="h4">Subtotal: {cart.subtotal.formatted_with_symbol}</Typography>
                 <div>
-                    {/* handling empty cart state onClick */}
+                    {/* 
+                        - handling empty cart state onClick'
+                        - proceed to checkout
+                    */}
                     <Button className={classes.emptyButton} size="large" type="button" variant="contained" color="secondary" onClick={handleEmptyCart}>Empty Cart</Button>
                     <Button component={Link} to="/checkout" className={classes.checkoutButton} size="large" type="button" variant="contained" color="primary">Checkout</Button>
                  </div>
@@ -45,6 +48,8 @@ const Cart = ({ cart, handleUpdateCartQty, handleRemoveFromCart, handleEmptyCart
         <Container>
             {/* this just pushes the content, creating sortof a top margin */}
             <div className={classes.toolbar}/>
+            <Button component={Link} to="/" size="large" variant="outlined" type="button">Back to Home</Button>
+    
             {/* options to display different content based state of cart */}
             <Typography className={classes.title} variant="h3" gutterBottom>Your Shopping Cart</Typography>
             {!cart.line_items.length ? <EmptyCart /> : <FilledCart />}
