@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import Product from './product/Product';
 import useStyles from './styles';
 
@@ -21,11 +21,17 @@ const Products = ({ products, onAddToCart }) => {
                 {products.map((product) => (
                 <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
                     {/* sending each product obj inside of our product component with map */}
-                    {/* passing onAddToCart event on level deeper, into our product */}
+                    {/* passing onAddToCart event one level deeper, into our product */}
                     <Product product={product} onAddToCart={onAddToCart}  /> 
                 </Grid> 
                 ))}
             </Grid>
+            <br />
+            <footer>
+                <Typography variant="subtitle1">
+                    Built by <a className={classes.link} href='https://github.com/Codexgrey'>Codexgrey</a> &copy; All Rights Reserved 2022
+                </Typography>
+            </footer>
         </main>
     );
 }
